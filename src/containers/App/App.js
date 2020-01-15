@@ -27,10 +27,11 @@ export class App extends Component {
   }
 
   signOut = async () => {
+    const { clearMessages } = this.props
     try {
       await endConversation();
       this.props.removeUser();
-      this.clearMessages();
+      clearMessages();
     } catch({ message }) {
       this.props.hasErrored(message);
     }
