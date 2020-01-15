@@ -1,12 +1,10 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { hasErrored } from '../../actions';
+import { hasErrored, addMessage } from '../../actions';
 import { postMessage } from '../../apiCalls';
 import Message from '../../components/Message/Message'
 import "./ChatBox.css"
-
-import { addMessage } from '../../actions/index';
 
 export class ChatBox extends Component {
   constructor() {
@@ -35,7 +33,7 @@ export class ChatBox extends Component {
 
   messageChatBot = async () => {
     try {
-      const messageResponse = await postMessage(this.state.message.message);
+      const messageResponse = await postMessage(this.state.message);
       addMessage(messageResponse.message, false);
     } catch({ message }) {
       this.props.hasErrored(message)  
@@ -72,9 +70,8 @@ export class ChatBox extends Component {
   }
 }
 
-export const mapStateToProps = ({ errorMsg, addMessage, messages }) => ({
+export const mapStateToProps = ({ errorMsg, messages }) => ({
   errorMsg,
-  addMessage,
   messages
 })
 
