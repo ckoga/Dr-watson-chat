@@ -32,6 +32,7 @@ export class ChatBox extends Component {
   }
 
   messageChatBot = async () => {
+    const { addMessage } = this.props
     try {
       const messageResponse = await postMessage(this.state.message);
       addMessage(messageResponse.message, false);

@@ -21,10 +21,10 @@ export class App extends Component {
   //   this.setState({ messages: [...messages, { message, isUser }]});
   // }
 
-  clearMessages = () => {
-    const { clearMessages } = this.props
-    clearMessages();
-  }
+  // clearMessages = () => {
+  //   const { clearMessages } = this.props
+  //   clearMessages();
+  // }
 
   signOut = async () => {
     const { clearMessages } = this.props
