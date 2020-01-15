@@ -90,4 +90,40 @@ describe('endConversation', () => {
 
     expect(endConversation()).rejects.toEqual(Error('fetch failed.'));
   });
+
+  describe('postMessage', () => {
+    beforeEach(() => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true
+        });
+      });
+    });
+
+    it('should call fetch with the correct URL', () => {
+      const URL = 'https://drwatson-api.herokuapp.com/api/message';
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newMessage: 'hi' })
+      }
+      postMessage('hi');
+
+      expect(window.fetch).toHaveBeenCalledWith(URL, options);
+    });
+
+    it('should resolve with no errors', () => {
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: { 'newMessage': 'hi' }
+      }
+      expect(postMessage('hi', options)).resolves.toEqual(undefined)
+    });
+
+  });
 });
