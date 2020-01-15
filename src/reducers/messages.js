@@ -1,7 +1,7 @@
-export const message = (state = [], action) => {
+export const messages = (state = [], action) => {
   switch(action.type) {
     case 'ADD_MESSAGE':
-      return [...messages, { message, isUser }];
+      return [...state, action];
 
     default: 
       return state;
