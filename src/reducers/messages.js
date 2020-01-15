@@ -3,6 +3,9 @@ export const messages = (state = [], action) => {
     case 'ADD_MESSAGE':
       return [...state, action];
 
+    case 'CLEAR_MESSAGES':
+      return state;
+
     default: 
       return state;
   }

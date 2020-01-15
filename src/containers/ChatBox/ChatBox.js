@@ -27,7 +27,6 @@ export class ChatBox extends Component {
     if (e.key === 'Enter' || e.button === 0) {
       const { message } = this.state;
       const { addMessage } = this.props
-      console.log(message)
       addMessage(message, true);
       this.setState({ message: '' });
       this.messageChatBot();
@@ -37,7 +36,7 @@ export class ChatBox extends Component {
   messageChatBot = async () => {
     try {
       const messageResponse = await postMessage(this.state.message.message);
-      this.props.addMessage(messageResponse.message, false);
+      addMessage(messageResponse.message, false);
     } catch({ message }) {
       this.props.hasErrored(message)  
     }
@@ -45,7 +44,7 @@ export class ChatBox extends Component {
 
   render() {
     const { message } = this.state;
-    const { messages, errorMsg } = this.props;
+    const { errorMsg, messages } = this.props;
     const survey = messages.map((message, i) => {
       return <Message
         key={`message${i}`}
@@ -73,10 +72,10 @@ export class ChatBox extends Component {
   }
 }
 
-export const mapStateToProps = ({ errorMsg, addMessage }) => ({
+export const mapStateToProps = ({ errorMsg, addMessage, messages }) => ({
   errorMsg,
   addMessage,
-  // messages
+  messages
 })
 
 export const mapDispatchToProps = dispatch => bindActionCreators({ hasErrored, addMessage }, dispatch);
